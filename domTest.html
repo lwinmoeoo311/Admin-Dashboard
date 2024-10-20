@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            position: relative;
+            width: 500px;
+            height: 20px;
+            margin: 10px;
+            background: cyan;
+        }
+
+        #ball {
+            position: absolute;
+            background-color: red;
+            width: 20px;
+            height: 20px;
+            left: 0;
+            top: 0;
+            border-radius: 30px;
+        }
+
+        form {
+            margin: 50px;
+        }
+
+        label {
+            display: none;
+            color: red;
+        }
+
+        #result {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="ball"></div>
+    </div>
+
+    <div id="container">
+        Div Element
+    </div>
+
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
+
+    <form>
+        <div>
+            <input type="text" id="a">
+            <label for="a">Enter the input number</label>
+
+        </div>
+
+        <div>
+            <input type="text" id="b">
+            <label for="b">Enter the input number</label>
+        </div>
+
+        <div id="result"></div>
+
+        <button type="button" id="add">Add</button>
+    </form>
+
+    <script>
+        let ball = document.querySelector("#ball")
+        let left = 0
+        let direction = "right"
+
+        let interval = setInterval(move, 10)
+
+        let hello = document.createTextNode("Hello Dom")
+        document.querySelector("#container").appendChild(hello)
+
+        let bold = document.createElement("b")
+        bold.textContent = "Hi DOM"
+        document.querySelector("#container").appendChild(bold)
+
+        let addedValue = document.createElement("b")
+        addedValue.textContent = "Added Value"
+        let div = document.querySelector("#container")
+        div.insertBefore(addedValue, div.firstChild)
+
+        function move() {
+            if (direction === "right") {
+                left += 1
+
+                if (left === 480) direction = "left"
+            } else {
+                left -= 1
+
+                if (left === 0) direction = "right"
+            }
+
+            ball.style.left = `${left}px`
+        }
+
+        function start() {
+            interval = setInterval(move, 10)
+        }
+
+        function stop() {
+            clearInterval(interval, 10)
+        }
+
+        document.querySelector('#add').addEventListener('click', e => {
+
+            let a = document.querySelector("#a").value
+            let b = document.querySelector("#b").value
+
+            if (isNaN(a)) {
+                document.querySelector("[for=a]").style.display = "inline"
+            }
+
+            if (isNaN(b)) {
+                document.querySelector("[for=b]").style.display = "inline"
+            }
+
+            let result = parseInt(a) + parseInt(b)
+
+            if (!isNaN(result)) {
+                document.querySelector("#result").textContent = result
+            }
+        })
+
+        document.querySelector('#a').onchange = () => {
+            let a = parseInt(document.querySelector("#a").value)
+            
+            if (!isNaN(a)) {
+                document.querySelector("[for=a]").style.display = "none"
+            }
+        }
+
+        document.querySelector('#b').onkeyup = () => {
+            let a = parseInt(document.querySelector("#b").value)
+            
+            if (!isNaN(a)) {
+                document.querySelector("[for=b]").style.display = "none"
+            }
+        }
+
+    </script>
+</body>
+
+</html>

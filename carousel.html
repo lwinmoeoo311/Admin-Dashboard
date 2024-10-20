@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .boxes {
+            width: 500px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .box {
+            height: 100px;
+        }
+
+        #box1 {
+            background: darkblue;
+        }
+
+        #box2 {
+            background: darkgreen;
+            display: none;
+        }
+
+        #box3 {
+            background: darkorange;
+            display: none;
+        }
+
+        .controls {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="boxes">
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"></div>
+        <div class="box" id="box3"></div>
+        <div class="controls">
+            <button type="button" id="prev">Prev</button>
+            <button type="button" id="next">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let box = 1
+
+        document.querySelector("#prev").addEventListener('click', e => {
+            moveNext()
+        })
+
+        document.querySelector("#next").addEventListener('click', e => {
+            movePrev()
+        })
+
+        function moveNext() {
+            document.querySelector(`#box${box}`).style.display = "none"
+            box++
+
+            if (box > 3) box = 1
+            document.querySelector(`#box${box}`).style.display = "block"
+        }
+
+        function movePrev() {
+            document.querySelector(`#box${box}`).style.display = "none"
+            box--
+
+            if (box < 1) box = 3
+            document.querySelector(`#box${box}`).style.display = "block"
+        }
+
+        setInterval(moveNext, 2000)
+    </script>
+</body>
+</html>
